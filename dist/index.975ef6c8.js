@@ -557,26 +557,14 @@ function hmrAccept(bundle, id) {
 }
 
 },{}],"8lqZg":[function(require,module,exports) {
-var _api = require("./constants/api");
-var _getDataApi = require("./utils/getDataApi");
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _app = require("./components/App/App");
+var _appDefault = parcelHelpers.interopDefault(_app);
 (async ()=>{
-    const data = await (0, _getDataApi.getDataApi).getData((0, _api.API_URL) + (0, _api.URL_COMICS));
-    console.log(data);
+    await (0, _appDefault.default).render();
 })();
 
-},{"./constants/api":"6kV46","./utils/getDataApi":"gJDYE"}],"6kV46":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
-parcelHelpers.export(exports, "API_URL", ()=>API_URL);
-parcelHelpers.export(exports, "URL_COMICS", ()=>URL_COMICS);
-parcelHelpers.export(exports, "URL_CHARACTERS", ()=>URL_CHARACTERS);
-const API_KEY = "a5837db97d72016c81a7a776f4240db9";
-const API_URL = "https://gateway.marvel.com/v1/public/";
-const URL_COMICS = "comics";
-const URL_CHARACTERS = "characters";
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/App/App":"gL2as"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -606,7 +594,33 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"gJDYE":[function(require,module,exports) {
+},{}],"gL2as":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _api = require("../../constants/api");
+var _getDataApi = require("../../utils/getDataApi");
+var _appCss = require("./App.css");
+class App {
+    async render() {
+        const data = await (0, _getDataApi.getDataApi).getData((0, _api.API_URL) + (0, _api.URL_COMICS));
+        console.log(data);
+    }
+}
+exports.default = new App();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../constants/api":"6kV46","../../utils/getDataApi":"gJDYE","./App.css":"jodtZ"}],"6kV46":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "URL_COMICS", ()=>URL_COMICS);
+parcelHelpers.export(exports, "URL_CHARACTERS", ()=>URL_CHARACTERS);
+const API_KEY = "a5837db97d72016c81a7a776f4240db9";
+const API_URL = "https://gateway.marvel.com/v1/public/";
+const URL_COMICS = "comics";
+const URL_CHARACTERS = "characters";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gJDYE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getDataApi", ()=>getDataApi);
@@ -4749,6 +4763,6 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 });
 exports.default = HttpStatusCode;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequirea407")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jodtZ":[function() {},{}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequirea407")
 
 //# sourceMappingURL=index.975ef6c8.js.map
