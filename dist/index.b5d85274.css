@@ -1,6 +1,10 @@
 :root {
   --color-dark: #222;
   --color-blue: #3199dc;
+  --color-light: #e3e1e1;
+  --spacing-small: 10px;
+  --spacing-medium: 15px;
+  --spacing-large: 20px;
 }
 
 *, :after, :before {
@@ -9,7 +13,9 @@
 
 body {
   background-color: var(--color-dark);
-  height: 200vh;
+  font-size: 16px;
+  line-height: 1.7;
+  font-family: "Roboto" sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -31,6 +37,18 @@ body {
 
 ::-webkit-scrollbar-track {
   background-color: var(--color-dark);
+}
+
+.comics__container {
+  gap: var(--spacing-medium);
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.comics__item {
+  width: 250px;
+  background-color: var(--color-light);
+  border-radius: 20px;
 }
 
 /*# sourceMappingURL=index.b5d85274.css.map */

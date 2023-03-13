@@ -560,11 +560,86 @@ function hmrAccept(bundle, id) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app = require("./components/App/App");
 var _appDefault = parcelHelpers.interopDefault(_app);
+var _comics = require("./components/Comics/Comics");
+var _comicsDefault = parcelHelpers.interopDefault(_comics);
 (async ()=>{
     await (0, _appDefault.default).render();
+    (0, _comicsDefault.default).eventListener();
 })();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/App/App":"gL2as"}],"gkKU3":[function(require,module,exports) {
+},{"./components/App/App":"gL2as","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/Comics/Comics":"7g7zQ"}],"gL2as":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _comics = require("../Comics/Comics");
+var _comicsDefault = parcelHelpers.interopDefault(_comics);
+var _appCss = require("./App.css");
+class App {
+    async render() {
+        await (0, _comicsDefault.default).render();
+    }
+}
+exports.default = new App();
+
+},{"../Comics/Comics":"7g7zQ","./App.css":"jodtZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7g7zQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _api = require("../../constants/api");
+var _getDataApi = require("../../utils/getDataApi");
+var _root = require("../../constants/root");
+var _comicsCss = require("./Comics.css");
+var _app = require("../App/App");
+var _appDefault = parcelHelpers.interopDefault(_app);
+class Comics {
+    async render() {
+        const data = await (0, _getDataApi.getDataApi).getData((0, _api.API_URL) + (0, _api.URL_COMICS));
+        let htmlContent = "";
+        data.forEach(({ id , title , thumbnail: { path , extension  }  })=>{
+            if (path.lastIndexOf((0, _api.IMG_NOT_AVAILABLE)) === -1) {
+                const uri = (0, _api.API_URL) + (0, _api.URL_COMICS) + "/" + id + "/" + (0, _api.URL_CHARACTERS);
+                const imgSrc = path + "/" + (0, _api.IMG_STANDARD_XLARGE) + "." + extension;
+                htmlContent += `
+          <li class="comics__item" data-uri="${uri}">
+            <span class="comics__title">${title}</span>
+            <img class="comics__img" src="${imgSrc}">
+          </li>
+        `;
+            }
+        });
+        const htmlWrapper = `
+    <ul class="comics__container">
+      ${htmlContent}
+    </ul>
+    `;
+        (0, _root.ROOT_INDEX).innerHTML = htmlWrapper;
+    }
+    eventListener() {
+        document.querySelectorAll(".comics__item").forEach((element)=>{
+            const uri = element.getAttribute("data-uri");
+            element.addEventListener("click", ()=>{
+                console.log(uri);
+            });
+        });
+    }
+}
+exports.default = new Comics();
+
+},{"../../constants/api":"6kV46","../../utils/getDataApi":"gJDYE","../../constants/root":"PzFj7","./Comics.css":"M5vBt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../App/App":"gL2as"}],"6kV46":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "URL_COMICS", ()=>URL_COMICS);
+parcelHelpers.export(exports, "URL_CHARACTERS", ()=>URL_CHARACTERS);
+parcelHelpers.export(exports, "IMG_STANDARD_XLARGE", ()=>IMG_STANDARD_XLARGE);
+parcelHelpers.export(exports, "IMG_NOT_AVAILABLE", ()=>IMG_NOT_AVAILABLE);
+const API_KEY = "a5837db97d72016c81a7a776f4240db9";
+const API_URL = "https://gateway.marvel.com/v1/public/";
+const URL_COMICS = "comics";
+const URL_CHARACTERS = "characters";
+const IMG_STANDARD_XLARGE = "standard_xlarge";
+const IMG_NOT_AVAILABLE = "image_not_available";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -594,33 +669,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"gL2as":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _api = require("../../constants/api");
-var _getDataApi = require("../../utils/getDataApi");
-var _appCss = require("./App.css");
-class App {
-    async render() {
-        const data = await (0, _getDataApi.getDataApi).getData((0, _api.API_URL) + (0, _api.URL_COMICS));
-        console.log(data);
-    }
-}
-exports.default = new App();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../constants/api":"6kV46","../../utils/getDataApi":"gJDYE","./App.css":"jodtZ"}],"6kV46":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "API_KEY", ()=>API_KEY);
-parcelHelpers.export(exports, "API_URL", ()=>API_URL);
-parcelHelpers.export(exports, "URL_COMICS", ()=>URL_COMICS);
-parcelHelpers.export(exports, "URL_CHARACTERS", ()=>URL_CHARACTERS);
-const API_KEY = "a5837db97d72016c81a7a776f4240db9";
-const API_URL = "https://gateway.marvel.com/v1/public/";
-const URL_COMICS = "comics";
-const URL_CHARACTERS = "characters";
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gJDYE":[function(require,module,exports) {
+},{}],"gJDYE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getDataApi", ()=>getDataApi);
@@ -4763,6 +4812,14 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 });
 exports.default = HttpStatusCode;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jodtZ":[function() {},{}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequirea407")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"PzFj7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ROOT_INDEX", ()=>ROOT_INDEX);
+parcelHelpers.export(exports, "ROOT_MODAL", ()=>ROOT_MODAL);
+const ROOT_INDEX = document.getElementById("root");
+const ROOT_MODAL = document.getElementById("modal");
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"M5vBt":[function() {},{}],"jodtZ":[function() {},{}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequirea407")
 
 //# sourceMappingURL=index.975ef6c8.js.map
